@@ -13,7 +13,7 @@ const lazyDefault = (loader: () => Promise<{ default: ComponentType<any> }>) => 
 export const ROLE_DASHBOARDS: Partial<Record<RoleId, ComponentType<any>>> = {
   // GRADE 1
   ceo: lazyDefault(() => import("@/pages/ai-ceo/AICEODashboard")),
-  vala_ai_management: lazyDefault(() => import("@/pages/vala-control/ValaControlCenter")),
+  vala_ai_management: lazyDefault(() => import("@/pages/OverAI")),
   server_manager: lazyDefault(() => import("@/pages/server-manager/ServerManagerDashboard")),
   api_ai_manager: lazyDefault(() => import("@/pages/ai-api-management/AIAPIManagementDashboard")),
   // GRADE 2
