@@ -243,6 +243,8 @@ function Index() {
 
           </div>
         </aside>
+        )}
+
       </div>
       <ValaAiAgent />
       <Toaster />
