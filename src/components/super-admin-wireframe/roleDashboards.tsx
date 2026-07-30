@@ -90,15 +90,9 @@ export function RoleDashboard({ role }: { role: RoleId }) {
         </div>
       }
     >
-      {/* `transform` makes this div the containing block for any `position: fixed`
-          layout inside a module, so module chrome stays inside the panel and the
-          Control Panel sidebar remains visible and clickable. */}
-      <div
-        className="relative isolate min-h-[85vh] w-full overflow-auto rounded-xl border border-white/10 bg-background"
-        style={{ transform: "translate3d(0,0,0)" }}
-      >
-        <Dashboard />
-      </div>
+      {/* Render the original page exactly as it is in the source repo — no extra chrome. */}
+      <Dashboard />
+
 
     </Suspense>
   );
