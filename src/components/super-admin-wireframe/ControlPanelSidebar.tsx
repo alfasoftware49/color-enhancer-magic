@@ -207,6 +207,7 @@ export const ControlPanelSidebar = memo<ControlPanelSidebarProps>(({
 
   return (
     <motion.aside
+      data-testid="control-panel-sidebar"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       animate={{ width: expanded ? SIDEBAR_WIDTH : SIDEBAR_COLLAPSED_WIDTH }}
