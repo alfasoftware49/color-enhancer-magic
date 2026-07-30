@@ -3,6 +3,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { AuthProvider } from "@/hooks/useAuth";
 import { SliderBanner } from "@/components/slider-banner/SliderBanner";
 import { BannerThemeControls } from "@/components/slider-banner/BannerThemeControls";
 import { RoleDashboard } from "@/components/super-admin-wireframe/roleDashboards";
@@ -163,7 +164,7 @@ function Index() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   return (
-    <TooltipProvider>
+    <AuthProvider><TooltipProvider>
       <div className="dark flex min-h-screen w-full" style={{ background: "radial-gradient(1200px 700px at 18% -10%, #163a72 0%, transparent 60%), radial-gradient(900px 600px at 100% 0%, #0f3a5c 0%, transparent 55%), #070f22" }}>
         <div
           className="flex-shrink-0 transition-[width] duration-300 ease-out"
@@ -242,7 +243,7 @@ function Index() {
       </div>
       <ValaAiAgent />
       <Toaster />
-    </TooltipProvider>
+    </TooltipProvider></AuthProvider>
   );
 }
 
