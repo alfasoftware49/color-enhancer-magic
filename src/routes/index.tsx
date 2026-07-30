@@ -182,8 +182,9 @@ function Index() {
           />
         </div>
 
-        <main className="flex min-w-0 flex-1 flex-col gap-6 p-5">
-          <CockpitBanner />
+        <main className={activeRole === "boss_owner" ? "flex min-w-0 flex-1 flex-col gap-6 p-5" : "min-w-0 flex-1"}>
+          {activeRole === "boss_owner" && <CockpitBanner />}
+
 
           {activeRole === "boss_owner" ? (
             <section>
