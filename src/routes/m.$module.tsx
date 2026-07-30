@@ -25,7 +25,9 @@ function ModulePage() {
     <AuthProvider>
       <TooltipProvider>
         {/* Original module UI, exactly as in the source repo — no extra chrome. */}
-        <RoleDashboard role={module as RoleId} />
+        <div className="dark min-h-screen w-full bg-background text-foreground">
+          <RoleDashboard role={module as RoleId} />
+        </div>
       </TooltipProvider>
     </AuthProvider>
   );
