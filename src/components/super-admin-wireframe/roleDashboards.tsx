@@ -90,14 +90,8 @@ export function RoleDashboard({ role }: { role: RoleId }) {
         </div>
       }
     >
-      {/* Render the original page exactly as it is — the wrapper only contains
-          fixed-position layouts so the Control Panel sidebar stays visible. */}
-      <div
-        className="relative h-screen w-full overflow-auto"
-        style={{ transform: "translateZ(0)", contain: "layout paint style" }}
-      >
-        <Dashboard />
-      </div>
+      {/* Render the original page exactly as it is in the source repo — no extra chrome. */}
+      <Dashboard />
     </Suspense>
   );
 }
