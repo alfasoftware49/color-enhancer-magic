@@ -25,7 +25,9 @@ import {
   Star, Scale, ListTodo, DollarSign, Code2, 
   Megaphone, HeartHandshake, Users, LogOut, Zap, Timer, MonitorPlay, 
   Home, Shield, Settings, Search, User, UserCircle, Boxes,
+  Trophy, Bell, Calculator, Gauge, FlaskConical, Siren, Briefcase, Plug, Network,
   PanelLeftClose, PanelLeftOpen
+
 } from "lucide-react";
 // ScrollArea removed - NO SCROLLING in Control Panel
 
@@ -60,6 +62,8 @@ const ROLE_CATEGORIES = [
   { id: 'promise_tracker_manager', label: 'Promise Tracker', icon: Timer },
   { id: 'assist_manager', label: 'Assist Manager', icon: MonitorPlay },
   { id: 'ams_manager', label: 'AMS Manager', icon: Boxes },
+  { id: 'award_management', label: 'Award Management System', icon: Trophy },
+  { id: 'auto_dev', label: 'Auto Dev Engine', icon: Code2 },
 
   // GRADE 3
   { id: 'marketing_management', label: 'Marketing Manager', icon: Megaphone },
@@ -67,19 +71,34 @@ const ROLE_CATEGORIES = [
   { id: 'lead_manager', label: 'Lead Manager', icon: Target },
   { id: 'sales_support_manager', label: 'Sales & Support', icon: Headphones },
   { id: 'customer_support_management', label: 'Customer Support', icon: HeartHandshake },
+  { id: 'sales_crm', label: 'Sales CRM', icon: Handshake },
+  { id: 'client_success', label: 'Client Success', icon: HeartHandshake },
+  { id: 'internal_support_ai', label: 'Internal Support AI', icon: Brain },
+  { id: 'notification_console', label: 'Notification Console', icon: Bell },
   // GRADE 4
   { id: 'franchise_manager', label: 'Franchise Owner', icon: Building2 },
   { id: 'reseller_manager', label: 'Reseller Manager', icon: Handshake },
   { id: 'influencer_manager', label: 'Influencer Manager', icon: Users },
   { id: 'influencer_dashboard', label: 'Influencer Dashboard', icon: User },
+  { id: 'multi_branch', label: 'Multi-Branch Manager', icon: Building2 },
   // GRADE 5
   { id: 'continent_super_admin', label: 'Continent Admin', icon: Globe2 },
   { id: 'country_head', label: 'Country Admin', icon: Flag },
   // GRADE 6
   { id: 'finance_manager', label: 'Finance Manager', icon: DollarSign },
+  { id: 'accounting_manager', label: 'Accounting Manager', icon: Calculator },
   { id: 'legal_manager', label: 'Legal Manager', icon: Scale },
   { id: 'developer_dashboard', label: 'Developer Dashboard', icon: Code2 },
   { id: 'pro_manager', label: 'Pro Manager', icon: Star },
+  { id: 'hr_manager', label: 'HR Manager', icon: Users },
+  { id: 'performance_manager', label: 'Performance Manager', icon: Gauge },
+  { id: 'rnd_manager', label: 'R&D Manager', icon: FlaskConical },
+  { id: 'incident_crisis', label: 'Incident & Crisis', icon: Siren },
+  { id: 'business_dashboard', label: 'Business Dashboard', icon: Briefcase },
+  { id: 'api_manager', label: 'API Manager', icon: Plug },
+  { id: 'server_orchestration', label: 'Server Orchestration', icon: Server },
+  { id: 'enterprise_control', label: 'Enterprise Control', icon: Network },
+  { id: 'master_control', label: 'Master Control Center', icon: Crown },
   // GRADE 7
   { id: 'pro_user_dashboard', label: 'Pro User Dashboard', icon: UserCircle },
   { id: 'basic_user_dashboard', label: 'Basic User Dashboard', icon: User },
@@ -87,6 +106,7 @@ const ROLE_CATEGORIES = [
   { id: 'home', label: 'Home', icon: Home },
   { id: 'security', label: 'Security', icon: Shield },
   { id: 'settings', label: 'Settings', icon: Settings },
+
 ] as const;
 
 type RoleId = typeof ROLE_CATEGORIES[number]['id'];
