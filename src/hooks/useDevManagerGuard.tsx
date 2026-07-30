@@ -17,6 +17,7 @@ const BLOCKED_ROUTES = [
 
 // Allowed routes for Developer Manager
 const ALLOWED_ROUTES = [
+  '/m/',
   '/dev-manager',
   '/logout',
   '/settings'
