@@ -167,7 +167,7 @@ function Index() {
     <AuthProvider><TooltipProvider>
       <div className="dark flex min-h-screen w-full" style={{ background: "radial-gradient(1200px 700px at 18% -10%, #163a72 0%, transparent 60%), radial-gradient(900px 600px at 100% 0%, #0f3a5c 0%, transparent 55%), #070f22" }}>
         <div
-          className="flex-shrink-0 transition-[width] duration-300 ease-out"
+          className="sticky top-0 z-50 h-screen flex-shrink-0 transition-[width] duration-300 ease-out"
           style={{ width: sidebarCollapsed ? SIDEBAR_COLLAPSED_WIDTH : SIDEBAR_WIDTH }}
         >
           <ControlPanelSidebar
@@ -182,7 +182,7 @@ function Index() {
           />
         </div>
 
-        <main className={activeRole === "boss_owner" ? "flex min-w-0 flex-1 flex-col gap-6 p-5" : "min-w-0 flex-1"}>
+        <main className={activeRole === "boss_owner" ? "flex min-w-0 flex-1 flex-col gap-6 p-5" : "h-screen min-w-0 flex-1 overflow-hidden"}>
           {activeRole === "boss_owner" && <CockpitBanner />}
 
 
