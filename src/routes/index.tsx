@@ -214,7 +214,9 @@ function Index() {
         </main>
 
 
+        {activeRole === "boss_owner" && (
         <aside
+
           className="hidden w-[300px] flex-shrink-0 xl:block"
           style={{ borderLeft: "2px solid rgba(88,160,255,0.34)" }}
         >
