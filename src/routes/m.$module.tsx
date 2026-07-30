@@ -1,6 +1,7 @@
 import { createFileRoute, useParams } from "@tanstack/react-router";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider } from "@/hooks/useAuth";
+import { TranslationProvider } from "@/contexts/TranslationContext";
 import { RoleDashboard } from "@/components/super-admin-wireframe/roleDashboards";
 import type { RoleId } from "@/components/super-admin-wireframe/ControlPanelSidebar";
 
@@ -23,12 +24,14 @@ function ModulePage() {
 
   return (
     <AuthProvider>
-      <TooltipProvider>
-        {/* Original module UI, exactly as in the source repo — no extra chrome. */}
-        <div className="dark min-h-screen w-full bg-background text-foreground">
-          <RoleDashboard role={module as RoleId} />
-        </div>
-      </TooltipProvider>
+      <TranslationProvider>
+        <TooltipProvider>
+          {/* Original module UI, exactly as in the source repo — no extra chrome. */}
+          <div className="dark min-h-screen w-full bg-background text-foreground">
+            <RoleDashboard role={module as RoleId} />
+          </div>
+        </TooltipProvider>
+      </TranslationProvider>
     </AuthProvider>
   );
 }
