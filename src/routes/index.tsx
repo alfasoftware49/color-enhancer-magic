@@ -5,6 +5,8 @@ import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { SliderBanner } from "@/components/slider-banner/SliderBanner";
 import { BannerThemeControls } from "@/components/slider-banner/BannerThemeControls";
+import { RoleDashboard } from "@/components/super-admin-wireframe/roleDashboards";
+
 
 
 import {
@@ -182,28 +184,33 @@ function Index() {
         <main className="flex min-w-0 flex-1 flex-col gap-6 p-5">
           <CockpitBanner />
 
-          <section>
-            <div className="mb-3 flex items-center justify-between">
-              <h2 className="text-sm font-semibold uppercase tracking-wider text-foreground/70">
-                Master KPI Grid — 2 × 20 (40 Cards)
-              </h2>
-              <span className="inline-flex items-center gap-1.5 rounded-lg border border-emerald-500/25 bg-emerald-500/10 px-3 py-1.5 text-xs font-semibold text-emerald-400">
-                <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-400" />
-                LIVE
-              </span>
-            </div>
-            <KPIGrid>
-              {KPI_BOXES.map((kpi) => (
-                <KPIBox
-                  key={kpi.id}
-                  {...kpi}
-                  isSelected={selectedKpi === kpi.id}
-                  onClick={() => setSelectedKpi(kpi.id === selectedKpi ? null : kpi.id)}
-                />
-              ))}
-            </KPIGrid>
-          </section>
+          {activeRole === "boss_owner" ? (
+            <section>
+              <div className="mb-3 flex items-center justify-between">
+                <h2 className="text-sm font-semibold uppercase tracking-wider text-foreground/70">
+                  Master KPI Grid — 2 × 20 (40 Cards)
+                </h2>
+                <span className="inline-flex items-center gap-1.5 rounded-lg border border-emerald-500/25 bg-emerald-500/10 px-3 py-1.5 text-xs font-semibold text-emerald-400">
+                  <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-400" />
+                  LIVE
+                </span>
+              </div>
+              <KPIGrid>
+                {KPI_BOXES.map((kpi) => (
+                  <KPIBox
+                    key={kpi.id}
+                    {...kpi}
+                    isSelected={selectedKpi === kpi.id}
+                    onClick={() => setSelectedKpi(kpi.id === selectedKpi ? null : kpi.id)}
+                  />
+                ))}
+              </KPIGrid>
+            </section>
+          ) : (
+            <RoleDashboard key={activeRole} role={activeRole} />
+          )}
         </main>
+
 
         <aside
           className="hidden w-[300px] flex-shrink-0 xl:block"
