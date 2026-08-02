@@ -140,8 +140,9 @@ Bar.displayName = "Bar";
 /* ------------------------------ 1. time / wx ------------------------------ */
 
 const TimeWeather = memo(() => {
-  const [now, setNow] = useState(() => new Date());
+  const [now, setNow] = useState<Date | null>(null);
   useEffect(() => {
+    setNow(new Date());
     const t = setInterval(() => setNow(new Date()), 1000);
     return () => clearInterval(t);
   }, []);
