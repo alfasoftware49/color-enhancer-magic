@@ -20,6 +20,7 @@ import { ResellerModulePage } from "@/components/dashboard/ResellerModulePage";
 import { ResellerCenterPage } from "@/components/dashboard/ResellerCenterPage";
 import { AIChatWorkspace } from "@/components/dashboard/AIChatWorkspace";
 import { AISuitePage } from "@/components/dashboard/AISuitePage";
+import { ResellerPricingWorkspace } from "@/components/dashboard/ResellerPricingWorkspace";
 import { ResellerAISuitePage } from "@/components/dashboard/ResellerAISuitePage";
 import { Breadcrumbs } from "@/components/dashboard/Breadcrumbs";
 import { KpiToolbar, type KpiSort, type KpiTone } from "@/components/dashboard/KpiToolbar";

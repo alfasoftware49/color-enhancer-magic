@@ -26,6 +26,7 @@ import {
   Megaphone, HeartHandshake, Users, LogOut, Zap, Timer, MonitorPlay, 
   Home, Shield, Settings, Search, User, UserCircle, Boxes,
   Trophy, Bell, Calculator, Gauge, FlaskConical, Siren, Briefcase, Plug, Network,
+  ShoppingBag, ShieldCheck, Radar, Package, MessageSquare, School, Store, PenTool, Link2, Sparkles,
   PanelLeftClose, PanelLeftOpen
 
 } from "lucide-react";
@@ -99,6 +100,29 @@ const ROLE_CATEGORIES = [
   { id: 'server_orchestration', label: 'Server Orchestration', icon: Server },
   { id: 'enterprise_control', label: 'Enterprise Control', icon: Network },
   { id: 'master_control', label: 'Master Control Center', icon: Crown },
+  // GRADE 6.5 — PLATFORM MODULES
+  { id: 'marketplace_manager', label: 'Marketplace Manager', icon: ShoppingBag },
+  { id: 'super_admin_system', label: 'Super Admin System', icon: ShieldCheck },
+  { id: 'vala_control', label: 'Vala Control Center', icon: Radar },
+  { id: 'safe_assist', label: 'Safe Assist', icon: HeartHandshake },
+  { id: 'promise_management', label: 'Promise Management', icon: Package },
+  { id: 'dev_command_center', label: 'Dev Command Center', icon: Terminal },
+  { id: 'internal_chat', label: 'Internal Chat', icon: MessageSquare },
+  { id: 'client_portal', label: 'Client Portal', icon: Briefcase },
+  { id: 'school_software', label: 'School Software', icon: School },
+  { id: 'retail_pos', label: 'Retail POS', icon: Store },
+  // GRADE 6.6 — PARTNER WORKSPACES
+  { id: 'ws_author', label: 'Author Workspace', icon: PenTool },
+  { id: 'ws_vendor', label: 'Vendor Workspace', icon: Store },
+  { id: 'ws_reseller', label: 'Reseller Workspace', icon: Handshake },
+  { id: 'ws_affiliate', label: 'Affiliate Workspace', icon: Link2 },
+  { id: 'ws_influencer', label: 'Influencer Workspace', icon: Sparkles },
+  { id: 'ws_franchise', label: 'Franchise Workspace', icon: Building2 },
+  { id: 'ws_seo', label: 'SEO Workspace', icon: Search },
+  { id: 'ws_admin', label: 'Admin Workspace', icon: Shield },
+  { id: 'ws_developer', label: 'Developer Workspace', icon: Code2 },
+  { id: 'ws_dev_manager', label: 'Dev Manager Workspace', icon: Code2 },
+  { id: 'ws_promise_tracker', label: 'Promise Tracker Workspace', icon: Timer },
   // GRADE 7
   { id: 'pro_user_dashboard', label: 'Pro User Dashboard', icon: UserCircle },
   { id: 'basic_user_dashboard', label: 'Basic User Dashboard', icon: User },

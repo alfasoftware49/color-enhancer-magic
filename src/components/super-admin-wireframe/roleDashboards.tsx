@@ -8,6 +8,12 @@ import type { RoleId } from "./ControlPanelSidebar";
 
 const noop = () => {};
 
+const workspace = (role: string) =>
+  lazy(async () => {
+    const m = await import("@/components/dashboard/RoleWorkspace");
+    return { default: () => <m.RoleWorkspace role={role as never} /> };
+  });
+
 const lazyDefault = (loader: () => Promise<{ default: ComponentType<any> }>) => lazy(loader);
 
 export const ROLE_DASHBOARDS: Partial<Record<RoleId, ComponentType<any>>> = {
@@ -69,6 +75,32 @@ export const ROLE_DASHBOARDS: Partial<Record<RoleId, ComponentType<any>>> = {
   server_orchestration: lazyDefault(() => import("@/pages/server-orchestration/ServerOrchestrationDashboard")),
   enterprise_control: lazyDefault(() => import("@/pages/enterprise-control/EnterpriseControlHub")),
   master_control: lazyDefault(() => import("@/pages/master-control/MasterControlCenter")),
+  // GRADE 6.5 — PLATFORM MODULES
+  marketplace_manager: lazyDefault(() => import("@/pages/super-admin/ProductManagerPage")),
+  super_admin_system: lazyDefault(() => import("@/pages/super-admin-system/RoleSwitch/RoleSwitchDashboard")),
+  vala_control: lazy(async () => {
+    const m = await import("@/pages/vala-control/ValaControlCenter");
+    return { default: () => <m.default roleView="operations" /> };
+  }),
+  safe_assist: lazyDefault(() => import("@/pages/safe-assist/SafeAssistDashboard")),
+  promise_management: lazyDefault(() => import("@/pages/promise-management/PromiseManagementDashboard")),
+  dev_command_center: lazyDefault(() => import("@/pages/DevCommandCenter")),
+  internal_chat: lazyDefault(() => import("@/pages/InternalChat")),
+  client_portal: lazyDefault(() => import("@/pages/ClientPortal")),
+  school_software: lazyDefault(() => import("@/pages/school-software/SchoolSoftwareHomepage")),
+  retail_pos: lazyDefault(() => import("@/pages/retail-pos/RetailPOSDemo")),
+  // GRADE 6.6 — PARTNER WORKSPACES (/dashboard/$role in the source repo)
+  ws_author: workspace("author"),
+  ws_vendor: workspace("vendor"),
+  ws_reseller: workspace("reseller"),
+  ws_affiliate: workspace("affiliate"),
+  ws_influencer: workspace("influencer"),
+  ws_franchise: workspace("franchise"),
+  ws_seo: workspace("seo"),
+  ws_admin: workspace("admin"),
+  ws_developer: workspace("developer"),
+  ws_dev_manager: workspace("dev-manager"),
+  ws_promise_tracker: workspace("promise-tracker"),
   // GRADE 7
   pro_user_dashboard: lazyDefault(() => import("@/pages/prime/PrimeDashboardPage")),
   basic_user_dashboard: lazyDefault(() => import("@/pages/SimpleUserDashboard")),
