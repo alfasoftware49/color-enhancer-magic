@@ -147,9 +147,9 @@ const TimeWeather = memo(() => {
     return () => clearInterval(t);
   }, []);
 
-  const local = now.toLocaleTimeString([], { hour12: false });
-  const utc = now.toUTCString().slice(17, 25);
-  const date = now.toLocaleDateString(undefined, {
+  const local = now ? now.toLocaleTimeString([], { hour12: false }) : "--:--:--";
+  const utc = now ? now.toUTCString().slice(17, 25) : "--:--:--";
+  const date = (now ?? new Date(0)).toLocaleDateString(undefined, {
     weekday: "short",
     day: "2-digit",
     month: "short",
