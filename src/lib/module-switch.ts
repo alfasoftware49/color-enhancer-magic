@@ -181,3 +181,5 @@ export const MODULE_GROUPS: ModuleGroup[] = [
     ],
   },
 ];
+
+export const MODULES = MODULE_GROUPS.flatMap((group) => group.items);
