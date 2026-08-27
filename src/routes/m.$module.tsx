@@ -3,6 +3,8 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider } from "@/hooks/useAuth";
 import { TranslationProvider } from "@/contexts/TranslationContext";
 import { RoleDashboard } from "@/components/super-admin-wireframe/roleDashboards";
+import { PageBanner } from "@/components/layout/PageBanner";
+import { ROLE_CATEGORIES } from "@/components/super-admin-wireframe/ControlPanelSidebar";
 import type { RoleId } from "@/components/super-admin-wireframe/ControlPanelSidebar";
 
 export const Route = createFileRoute("/m/$module")({
@@ -21,6 +23,8 @@ export const Route = createFileRoute("/m/$module")({
 
 function ModulePage() {
   const { module } = useParams({ from: "/m/$module" });
+  const label =
+    ROLE_CATEGORIES.find((r) => r.id === module)?.label ?? "Module";
 
   return (
     <AuthProvider>
@@ -28,6 +32,15 @@ function ModulePage() {
         <TooltipProvider>
           {/* Original module UI, exactly as in the source repo — no extra chrome. */}
           <div className="dark min-h-screen w-full bg-background text-foreground">
+            <div className="px-4 pt-4 sm:px-6">
+              <PageBanner
+                eyebrow="Software Vala"
+                title={label}
+                description="Module workspace — live operational controls."
+                live
+                liveLabel="module"
+              />
+            </div>
             <RoleDashboard role={module as RoleId} />
           </div>
         </TooltipProvider>
