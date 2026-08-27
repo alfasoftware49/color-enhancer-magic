@@ -34,16 +34,16 @@ import {
 
 // ===== LOCKED COLORS (SOFTWARE VALA VIOLET GRADIENT) =====
 const COLORS = {
-  bg: '#0a1428',
-  bgGradient: 'linear-gradient(180deg, #10254a 0%, #0b1a35 55%, #060d1d 100%)',
-  border: 'rgba(88, 160, 255, 0.32)',
-  activeHighlight: '#2f7dff',
-  hoverBg: 'rgba(88, 160, 255, 0.22)',
-  cardBg: 'rgba(88, 160, 255, 0.12)',
-  cardGlow: 'rgba(88, 160, 255, 0.35)',
-  text: '#ffffff',
-  textMuted: 'rgba(255, 255, 255, 0.7)',
-  iconColor: '#bcd8ff',
+  bg: 'var(--background)',
+  bgGradient: 'linear-gradient(180deg, color-mix(in oklab, var(--primary) 16%, var(--surface)) 0%, var(--surface) 45%, var(--background) 100%)',
+  border: 'var(--border)',
+  activeHighlight: 'var(--primary)',
+  hoverBg: 'color-mix(in oklab, var(--primary) 20%, transparent)',
+  cardBg: 'color-mix(in oklab, var(--primary) 12%, transparent)',
+  cardGlow: 'color-mix(in oklab, var(--primary) 35%, transparent)',
+  text: 'var(--foreground)',
+  textMuted: 'var(--muted-foreground)',
+  iconColor: 'color-mix(in oklab, var(--primary-glow) 75%, white)',
 };
 
 // ===== ROLE CATEGORIES (EXACT ORDER - LOCKED BY GRADE) =====
@@ -165,9 +165,9 @@ const RoleButton = memo<{
       )}
       style={{
         background: isActive
-          ? `linear-gradient(135deg, ${COLORS.activeHighlight} 0%, #48c6ff 100%)`
+          ? `linear-gradient(135deg, ${COLORS.activeHighlight} 0%, var(--primary-glow) 100%)`
           : undefined,
-        boxShadow: isActive ? '0 10px 26px -12px rgba(50, 140, 255, 0.9)' : undefined,
+        boxShadow: isActive ? 'var(--shadow-card, 0 10px 26px -12px color-mix(in oklab, var(--primary) 80%, transparent))' : undefined,
       }}
     >
       {/* Active indicator bar */}
@@ -201,7 +201,7 @@ const RoleButton = memo<{
 
       {/* Premium tooltip in collapsed mode */}
       {compact && (
-        <span className="pointer-events-none absolute left-[105%] z-50 hidden whitespace-nowrap rounded-md border border-primary/40 bg-[#0f2244] px-2 py-1 text-[11px] font-semibold text-white opacity-0 shadow-xl transition-opacity duration-150 group-hover:block group-hover:opacity-100">
+        <span className="pointer-events-none absolute left-[105%] z-50 hidden whitespace-nowrap rounded-md border border-primary/40 bg-surface-2 px-2 py-1 text-[11px] font-semibold text-white opacity-0 shadow-xl transition-opacity duration-150 group-hover:block group-hover:opacity-100">
           {role.label}
         </span>
       )}
@@ -240,7 +240,7 @@ export const ControlPanelSidebar = memo<ControlPanelSidebarProps>(({
       style={{
         height: '100vh',
         background: COLORS.bgGradient,
-        borderRight: `2px solid ${COLORS.border}`,
+        borderRight: `1px solid ${COLORS.border}`,
         overflowY: 'auto',
         overflowX: 'hidden',
       }}
@@ -280,17 +280,17 @@ export const ControlPanelSidebar = memo<ControlPanelSidebarProps>(({
       <div className="px-2 py-2.5 flex-shrink-0" style={{ borderTop: `1px solid ${COLORS.border}` }}>
         {!compact && (
           <div className="flex items-center gap-1.5 mb-2">
-            <div className="flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-emerald-500/10 border border-emerald-500/20">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              <span className="text-[10px] font-bold text-emerald-400 uppercase">Live</span>
+            <div className="flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-accent-emerald/10 border border-accent-emerald/25">
+              <span className="w-1.5 h-1.5 rounded-full bg-accent-emerald animate-pulse" />
+              <span className="text-[10px] font-bold text-accent-emerald uppercase">Live</span>
             </div>
-            <div className="flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-cyan-500/10 border border-cyan-500/20">
-              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
-              <span className="text-[10px] font-bold text-cyan-400 uppercase">AI</span>
+            <div className="flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-accent-pink/10 border border-accent-pink/25">
+              <span className="w-1.5 h-1.5 rounded-full bg-accent-pink" />
+              <span className="text-[10px] font-bold text-accent-pink uppercase">AI</span>
             </div>
-            <div className="flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-blue-500/10 border border-blue-500/20">
-              <span className="w-1.5 h-1.5 rounded-full bg-blue-400" />
-              <span className="text-[10px] font-bold text-blue-400 uppercase">OK</span>
+            <div className="flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-primary/15 border border-primary/30">
+              <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+              <span className="text-[10px] font-bold text-primary uppercase">OK</span>
             </div>
           </div>
         )}
