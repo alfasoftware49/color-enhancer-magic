@@ -48,7 +48,7 @@ const COLORS = {
 
 // ===== ROLE CATEGORIES (EXACT ORDER - LOCKED BY GRADE) =====
 // IDs MUST match ActiveRole type in RoleSwitchSidebarNew.tsx
-const ROLE_CATEGORIES = [
+export const ROLE_CATEGORIES = [
   // GRADE 1
   { id: 'boss_owner', label: 'Boss Dashboard', icon: Crown },
   { id: 'ceo', label: 'CEO Dashboard', icon: Eye },
