@@ -44,7 +44,7 @@ function ModulePage() {
             {/* transform creates a containing block so the module's own
                 fixed sidebar/header stay inside this area, below the banner */}
             <div
-              className="relative isolate mt-4 w-full overflow-x-hidden"
+              data-mw className="relative isolate mt-4 w-full overflow-x-hidden"
               style={{ transform: "translateZ(0)", contain: "layout paint" }}
             >
               <RoleDashboard role={module as RoleId} />
