@@ -30,8 +30,8 @@ function ModulePage() {
     <AuthProvider>
       <TranslationProvider>
         <TooltipProvider>
-          {/* Original module UI, exactly as in the source repo — no extra chrome. */}
-          <div className="dark min-h-screen w-full bg-background text-foreground">
+          {/* Original module UI, exactly as in the source repo — banner on top. */}
+          <div className="dark min-h-screen w-full overflow-x-hidden bg-background text-foreground">
             <div className="px-4 pt-4 sm:px-6">
               <PageBanner
                 eyebrow="Software Vala"
@@ -41,7 +41,14 @@ function ModulePage() {
                 liveLabel="module"
               />
             </div>
-            <RoleDashboard role={module as RoleId} />
+            {/* transform creates a containing block so the module's own
+                fixed sidebar/header stay inside this area, below the banner */}
+            <div
+              className="relative isolate mt-4 w-full overflow-x-hidden"
+              style={{ transform: "translateZ(0)", contain: "layout paint" }}
+            >
+              <RoleDashboard role={module as RoleId} />
+            </div>
           </div>
         </TooltipProvider>
       </TranslationProvider>
