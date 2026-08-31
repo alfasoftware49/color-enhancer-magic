@@ -45,11 +45,11 @@ const KIND_STYLE: Record<
     label: "Approval",
     icon: ClipboardCheck,
     hues: [
-      "linear-gradient(135deg,#8fd7ff 0%,#4facfe 48%,#2f7dff 100%)",
-      "linear-gradient(135deg,#a5e4ff 0%,#58c7ff 50%,#3a8dff 100%)",
-      "linear-gradient(135deg,#9be7f5 0%,#49b8ff 52%,#2f95ff 100%)",
+      "linear-gradient(135deg,#d9c2ff 0%,#a97bff 48%,#7c4dff 100%)",
+      "linear-gradient(135deg,#e2ccff 0%,#b58aff 50%,#8b5cff 100%)",
+      "linear-gradient(135deg,#f0c6ff 0%,#c079ff 52%,#9445ff 100%)",
     ],
-    glows: ["rgba(120,200,255,0.85)", "rgba(110,190,255,0.85)", "rgba(140,220,255,0.85)"],
+    glows: ["rgba(180,130,255,0.85)", "rgba(195,150,255,0.85)", "rgba(205,130,255,0.85)"],
     chip: "bg-white/25 text-white border-white/50",
   },
   notification: {
@@ -116,7 +116,7 @@ export function SliderBanner({ className, intervalMs = 5000, compact = false }: 
           "flex items-center justify-center rounded-3xl border-2 border-primary/40 p-8 text-sm font-semibold text-foreground/70",
           className,
         )}
-        style={{ background: "linear-gradient(160deg,#10254a,#060d1d)" }}
+        style={{ backgroundImage: "var(--gradient-surface)" }}
       >
         All clear, Boss — koi pending alert, approval ya to-do nahi hai.
       </div>
