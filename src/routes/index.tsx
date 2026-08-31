@@ -184,7 +184,7 @@ function Index() {
 
   return (
     <AuthProvider><TooltipProvider>
-      <div className="dark flex min-h-screen w-full" style={{ background: "radial-gradient(1200px 700px at 18% -10%, #163a72 0%, transparent 60%), radial-gradient(900px 600px at 100% 0%, #0f3a5c 0%, transparent 55%), #070f22" }}>
+      <div className="dark flex min-h-screen w-full bg-background text-foreground">
         <div
           className="flex-shrink-0 transition-[width] duration-300 ease-out"
           style={{ width: sidebarCollapsed ? SIDEBAR_COLLAPSED_WIDTH : SIDEBAR_WIDTH }}
