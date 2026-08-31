@@ -238,24 +238,17 @@ function Index() {
 
 
         {activeRole === "boss_owner" && (
-        <aside
-
-          className="hidden w-[300px] flex-shrink-0 xl:block"
-          style={{ borderLeft: "2px solid rgba(88,160,255,0.34)" }}
-        >
+        <aside className="hidden w-[300px] flex-shrink-0 border-l border-border xl:block">
           <div
             className="sticky top-0 flex h-screen flex-col overflow-y-auto"
-            style={{ background: "linear-gradient(180deg, #10254a 0%, #0b1a35 55%, #060d1d 100%)" }}
+            style={{ backgroundImage: "var(--gradient-surface)" }}
           >
-            <div
-              className="flex items-center justify-between gap-2 px-3 py-2.5"
-              style={{ borderBottom: "2px solid rgba(88,160,255,0.34)" }}
-            >
+            <div className="flex items-center justify-between gap-2 border-b border-border px-3 py-2.5">
               <h2 className="text-[11px] font-extrabold uppercase tracking-[0.18em] text-foreground">
                 Command Center
               </h2>
-              <span className="inline-flex items-center gap-1 rounded-md border border-emerald-500/25 bg-emerald-500/10 px-1.5 py-0.5 text-[9px] font-bold text-emerald-400">
-                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
+              <span className="inline-flex items-center gap-1 rounded-md border border-accent-emerald/30 bg-accent-emerald/10 px-1.5 py-0.5 text-[9px] font-bold text-accent-emerald">
+                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-accent-emerald" />
                 LIVE
               </span>
             </div>
@@ -263,10 +256,10 @@ function Index() {
               <SliderBanner compact intervalMs={6000} />
             </div>
             <CommandCenter />
-
           </div>
         </aside>
         )}
+
 
       </div>
       <ValaAiAgent />
