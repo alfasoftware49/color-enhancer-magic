@@ -54,6 +54,9 @@ import ControlPanelSidebar, {
 import { CommandCenter } from "@/components/command-center/CommandCenter";
 import { KPIGrid, KPIBox } from "@/components/boss/KPIGrid";
 import { ValaAiAgent } from "@/components/vala-ai/ValaAiAgent";
+import { PageBanner } from "@/components/layout/PageBanner";
+import { ROLE_CATEGORIES } from "@/components/super-admin-wireframe/ControlPanelSidebar";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -150,12 +153,27 @@ const KPI_BOXES: Kpi[] = [
 
 function CockpitBanner() {
   return (
-    <section className="flex flex-col gap-3">
+    <section className="flex flex-col gap-4">
+      <PageBanner
+        eyebrow="Software Vala"
+        title="Master Control Panel"
+        description="Boss cockpit — every workspace, KPI and live signal in one place."
+        live
+        liveLabel="cockpit"
+        panelTitle="Boss / Owner"
+        panelSubtitle="Full platform authority"
+        stats={[
+          { label: "KPIs", value: KPI_BOXES.length },
+          { label: "Modules", value: ROLE_CATEGORIES.length },
+          { label: "Uptime", value: "99.9%" },
+        ]}
+      />
       <BannerThemeControls />
       <SliderBanner />
     </section>
   );
 }
+
 
 
 function Index() {
@@ -166,7 +184,7 @@ function Index() {
 
   return (
     <AuthProvider><TooltipProvider>
-      <div className="dark flex min-h-screen w-full" style={{ background: "radial-gradient(1200px 700px at 18% -10%, #163a72 0%, transparent 60%), radial-gradient(900px 600px at 100% 0%, #0f3a5c 0%, transparent 55%), #070f22" }}>
+      <div className="dark flex min-h-screen w-full bg-background text-foreground">
         <div
           className="flex-shrink-0 transition-[width] duration-300 ease-out"
           style={{ width: sidebarCollapsed ? SIDEBAR_COLLAPSED_WIDTH : SIDEBAR_WIDTH }}
@@ -193,14 +211,15 @@ function Index() {
           {activeRole === "boss_owner" ? (
             <section>
               <div className="mb-3 flex items-center justify-between">
-                <h2 className="text-sm font-semibold uppercase tracking-wider text-foreground/70">
+                <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
                   Master KPI Grid — 2 × 20 (40 Cards)
                 </h2>
-                <span className="inline-flex items-center gap-1.5 rounded-lg border border-emerald-500/25 bg-emerald-500/10 px-3 py-1.5 text-xs font-semibold text-emerald-400">
-                  <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-400" />
+                <span className="inline-flex items-center gap-1.5 rounded-lg border border-accent-emerald/30 bg-accent-emerald/10 px-3 py-1.5 text-xs font-semibold text-accent-emerald">
+                  <span className="h-2 w-2 animate-pulse rounded-full bg-accent-emerald" />
                   LIVE
                 </span>
               </div>
+
               <KPIGrid>
                 {KPI_BOXES.map((kpi) => (
                   <KPIBox
@@ -219,24 +238,17 @@ function Index() {
 
 
         {activeRole === "boss_owner" && (
-        <aside
-
-          className="hidden w-[300px] flex-shrink-0 xl:block"
-          style={{ borderLeft: "2px solid rgba(88,160,255,0.34)" }}
-        >
+        <aside className="hidden w-[300px] flex-shrink-0 border-l border-border xl:block">
           <div
             className="sticky top-0 flex h-screen flex-col overflow-y-auto"
-            style={{ background: "linear-gradient(180deg, #10254a 0%, #0b1a35 55%, #060d1d 100%)" }}
+            style={{ backgroundImage: "var(--gradient-surface)" }}
           >
-            <div
-              className="flex items-center justify-between gap-2 px-3 py-2.5"
-              style={{ borderBottom: "2px solid rgba(88,160,255,0.34)" }}
-            >
+            <div className="flex items-center justify-between gap-2 border-b border-border px-3 py-2.5">
               <h2 className="text-[11px] font-extrabold uppercase tracking-[0.18em] text-foreground">
                 Command Center
               </h2>
-              <span className="inline-flex items-center gap-1 rounded-md border border-emerald-500/25 bg-emerald-500/10 px-1.5 py-0.5 text-[9px] font-bold text-emerald-400">
-                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
+              <span className="inline-flex items-center gap-1 rounded-md border border-accent-emerald/30 bg-accent-emerald/10 px-1.5 py-0.5 text-[9px] font-bold text-accent-emerald">
+                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-accent-emerald" />
                 LIVE
               </span>
             </div>
@@ -244,10 +256,10 @@ function Index() {
               <SliderBanner compact intervalMs={6000} />
             </div>
             <CommandCenter />
-
           </div>
         </aside>
         )}
+
 
       </div>
       <ValaAiAgent />

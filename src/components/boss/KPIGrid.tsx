@@ -54,10 +54,10 @@ const BASE_THEME: Record<
     label: 'HEALTHY',
   },
   action: {
-    glow: 'rgba(88,160,255,0.55)',
-    strip: 'linear-gradient(180deg,#7ab8ff 0%,#3b82f6 55%,#2563eb 100%)',
-    text: 'text-[#03142e]',
-    dot: 'bg-sky-400',
+    glow: 'color-mix(in oklab, var(--primary) 55%, transparent)',
+    strip: 'linear-gradient(180deg, var(--primary-glow) 0%, var(--primary) 60%, var(--primary) 100%)',
+    text: 'text-[oklch(0.16_0.04_290)]',
+    dot: 'bg-primary',
     label: 'RUNNING',
   },
   warning: {
@@ -283,7 +283,7 @@ export function KPIBox({
         transition={{ type: 'spring', stiffness: 340, damping: 26 }}
         style={{
           transform: `rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
-          backgroundImage: `radial-gradient(520px circle at ${tilt.mx}% ${tilt.my}%, rgba(120,180,255,0.13), transparent 45%), linear-gradient(162deg,#152238 0%,#0d1728 48%,#080e1c 100%)`,
+          backgroundImage: `radial-gradient(520px circle at ${tilt.mx}% ${tilt.my}%, color-mix(in oklab, var(--primary) 16%, transparent), transparent 45%), linear-gradient(162deg, var(--surface-3) 0%, var(--surface) 55%, var(--card) 100%)`,
         }}
         className={cn(
           'group relative z-10 flex h-full min-h-[150px] cursor-pointer flex-col overflow-hidden rounded-[28px] p-4',
