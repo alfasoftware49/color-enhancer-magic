@@ -150,12 +150,27 @@ const KPI_BOXES: Kpi[] = [
 
 function CockpitBanner() {
   return (
-    <section className="flex flex-col gap-3">
+    <section className="flex flex-col gap-4">
+      <PageBanner
+        eyebrow="Software Vala"
+        title="Master Control Panel"
+        description="Boss cockpit — every workspace, KPI and live signal in one place."
+        live
+        liveLabel="cockpit"
+        panelTitle="Boss / Owner"
+        panelSubtitle="Full platform authority"
+        stats={[
+          { label: "KPIs", value: KPI_BOXES.length },
+          { label: "Modules", value: ROLE_CATEGORIES.length },
+          { label: "Uptime", value: "99.9%" },
+        ]}
+      />
       <BannerThemeControls />
       <SliderBanner />
     </section>
   );
 }
+
 
 
 function Index() {
