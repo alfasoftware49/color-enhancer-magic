@@ -211,14 +211,15 @@ function Index() {
           {activeRole === "boss_owner" ? (
             <section>
               <div className="mb-3 flex items-center justify-between">
-                <h2 className="text-sm font-semibold uppercase tracking-wider text-foreground/70">
+                <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
                   Master KPI Grid — 2 × 20 (40 Cards)
                 </h2>
-                <span className="inline-flex items-center gap-1.5 rounded-lg border border-emerald-500/25 bg-emerald-500/10 px-3 py-1.5 text-xs font-semibold text-emerald-400">
-                  <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-400" />
+                <span className="inline-flex items-center gap-1.5 rounded-lg border border-accent-emerald/30 bg-accent-emerald/10 px-3 py-1.5 text-xs font-semibold text-accent-emerald">
+                  <span className="h-2 w-2 animate-pulse rounded-full bg-accent-emerald" />
                   LIVE
                 </span>
               </div>
+
               <KPIGrid>
                 {KPI_BOXES.map((kpi) => (
                   <KPIBox
