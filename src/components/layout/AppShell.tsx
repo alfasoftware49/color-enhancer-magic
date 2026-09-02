@@ -8,7 +8,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   const { collapsed, toggleCollapsed, mobileOpen, setMobileOpen } = useSidebarState();
 
   return (
-    <div className="flex min-h-screen w-full bg-background">
+    <div className="flex min-h-screen w-full overflow-x-hidden bg-background">
       <SideNav
         collapsed={collapsed}
         onToggleCollapsed={toggleCollapsed}
@@ -17,13 +17,14 @@ export function AppShell({ children }: { children: ReactNode }) {
       />
       <div className="flex min-w-0 flex-1 flex-col">
         <ShellTopBar onOpenMenu={() => setMobileOpen(true)} />
-        <main className="flex-1 min-w-0">
-          <div className="mx-auto w-full max-w-[1600px] px-4 py-6 sm:px-6 lg:px-8">
+        <main className="min-w-0 flex-1">
+          <div className="mx-auto w-full min-w-0 max-w-[1600px] px-3 py-4 sm:px-6 sm:py-6 lg:px-8">
             <WorkspaceBar />
             {children}
           </div>
         </main>
       </div>
     </div>
+
   );
 }
