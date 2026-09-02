@@ -255,13 +255,14 @@ export function SideNav({ collapsed, onToggleCollapsed, mobileOpen, onCloseMobil
       </aside>
 
       {mobileOpen && (
-        <div className="fixed inset-0 z-50 lg:hidden">
-          <button className="absolute inset-0 bg-background/70 backdrop-blur-sm" onClick={onCloseMobile} aria-label="Close menu overlay" />
-          <div className="absolute inset-y-0 left-0 w-[280px] max-w-[85vw] border-r border-border bg-background shadow-2xl">
+        <div className="fixed inset-0 z-50 lg:hidden" role="dialog" aria-modal="true" aria-label="Navigation menu">
+          <button className="absolute inset-0 bg-background/70 backdrop-blur-sm animate-in fade-in duration-200" onClick={onCloseMobile} aria-label="Close menu overlay" />
+          <div className="absolute inset-y-0 left-0 flex w-[280px] max-w-[85vw] flex-col overflow-y-auto overscroll-contain border-r border-border bg-background shadow-2xl animate-in slide-in-from-left duration-200">
             {content}
           </div>
         </div>
       )}
+
     </>
   );
 }
