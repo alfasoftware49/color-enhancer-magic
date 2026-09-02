@@ -21,6 +21,8 @@ interface PageBannerProps {
   panelTitle?: string;
   panelSubtitle?: string;
   stats?: HeroStat[];
+  /** Denser variant for module screens (less vertical space). */
+  compact?: boolean;
 }
 
 export function PageBanner({
@@ -33,30 +35,31 @@ export function PageBanner({
   panelTitle,
   panelSubtitle,
   stats = [],
+  compact = false,
 }: PageBannerProps) {
   const showPanel = Boolean(panelTitle) || stats.length > 0;
 
   return (
-    <section className="hero-surface relative overflow-hidden p-6 md:p-10">
+    <section className={`hero-surface relative overflow-hidden ${compact ? "p-4 md:p-6" : "p-6 md:p-10"}`}>
       <div className="absolute -top-24 -right-24 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
       <div className="absolute -bottom-24 -left-10 h-64 w-64 rounded-full bg-accent-pink/40 blur-3xl" />
 
-      <div className={`relative grid items-start gap-8 ${showPanel ? "lg:grid-cols-2" : ""}`}>
+      <div className={`relative grid items-start ${compact ? "gap-5" : "gap-8"} ${showPanel ? "lg:grid-cols-2" : ""}`}>
         <div>
           <div className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/15 px-3 py-1 text-xs font-medium backdrop-blur">
             <Sparkles className="h-3.5 w-3.5" /> {eyebrow}
           </div>
-          <h1 className="mt-5 text-4xl font-bold tracking-tight md:text-6xl">{title}</h1>
-          {description && <p className="mt-3 max-w-md text-white/80">{description}</p>}
+          <h1 className={compact ? "mt-3 text-2xl font-bold tracking-tight md:text-3xl" : "mt-5 text-4xl font-bold tracking-tight md:text-6xl"}>{title}</h1>
+          {description && <p className={`max-w-md text-white/80 ${compact ? "mt-1.5 text-sm" : "mt-3"}`}>{description}</p>}
 
-          <div className="mt-6 flex flex-wrap items-center gap-3">
+          <div className={`flex flex-wrap items-center gap-3 ${compact ? "mt-3" : "mt-6"}`}>
             {actions}
             <span
               className={
                 "inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-[11px] font-medium " +
                 (live
-                  ? "border-accent-emerald/40 bg-accent-emerald/15 text-accent-emerald"
-                  : "border-white/20 bg-white/10 text-white/80")
+                  ? "border-white/30 bg-black/35 text-white"
+                  : "border-white/25 bg-black/25 text-white/85")
               }
             >
               <Activity className="h-3 w-3" />
