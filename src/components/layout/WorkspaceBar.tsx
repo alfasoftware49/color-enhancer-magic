@@ -196,7 +196,7 @@ export function WorkspaceBar() {
   if (!meta || pathname === "/command-center") return null;
 
   return (
-    <div className="sticky top-[100px] z-20 -mx-6 mb-4 border-b border-border/60 bg-background/85 px-6 py-2 backdrop-blur-md">
+    <div className="sticky top-16 z-20 -mx-3 mb-4 border-b border-border/60 bg-background/85 px-3 py-2 backdrop-blur-md sm:-mx-6 sm:px-6">
       <div className="mx-auto flex max-w-[1600px] flex-wrap items-center justify-between gap-2">
         {/* breadcrumb — every crumb is a real Link */}
         <nav
@@ -232,7 +232,7 @@ export function WorkspaceBar() {
         </nav>
 
         {/* operational actions */}
-        <div className="flex items-center gap-1.5">
+        <div className="flex w-full items-center gap-1.5 overflow-x-auto sm:w-auto sm:overflow-visible">
           <button
             type="button"
             onClick={togglePin}
@@ -275,7 +275,7 @@ export function WorkspaceBar() {
 
       {/* related-screens chip row */}
       {siblings.length > 1 && (
-        <div className="mx-auto mt-2 flex max-w-[1600px] flex-wrap items-center gap-1.5">
+        <div className="scrollbar-thin mx-auto mt-2 flex max-w-[1600px] items-center gap-1.5 overflow-x-auto pb-1 sm:flex-wrap sm:overflow-visible sm:pb-0">
           <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground/70">
             Related
           </span>
