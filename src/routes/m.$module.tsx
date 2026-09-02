@@ -3,6 +3,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider } from "@/hooks/useAuth";
 import { TranslationProvider } from "@/contexts/TranslationContext";
 import { RoleDashboard } from "@/components/super-admin-wireframe/roleDashboards";
+import { AppShell } from "@/components/layout/AppShell";
 import { PageBanner } from "@/components/layout/PageBanner";
 import { ROLE_CATEGORIES } from "@/components/super-admin-wireframe/ControlPanelSidebar";
 import type { RoleId } from "@/components/super-admin-wireframe/ControlPanelSidebar";
@@ -27,31 +28,35 @@ function ModulePage() {
     ROLE_CATEGORIES.find((r) => r.id === module)?.label ?? "Module";
 
   return (
-    <AuthProvider>
+    <AppShell>
+      <AuthProvider>
       <TranslationProvider>
         <TooltipProvider>
           {/* Original module UI, exactly as in the source repo — banner on top. */}
-          <div className="dark min-h-screen w-full overflow-x-hidden bg-background text-foreground">
-            <div className="px-4 pt-4 sm:px-6">
+          <div className="ams-skin dark w-full overflow-x-hidden bg-background text-foreground">
+            <div>
               <PageBanner
                 eyebrow="Software Vala"
                 title={label}
                 description="Module workspace — live operational controls."
                 live
                 liveLabel="module"
+                compact
               />
             </div>
             {/* transform creates a containing block so the module's own
                 fixed sidebar/header stay inside this area, below the banner */}
             <div
-              className="relative isolate mt-4 w-full overflow-x-hidden"
+              className="relative isolate mt-3 w-full overflow-x-hidden sm:mt-4"
               style={{ transform: "translateZ(0)", contain: "layout paint" }}
             >
               <RoleDashboard role={module as RoleId} />
             </div>
           </div>
+
         </TooltipProvider>
       </TranslationProvider>
     </AuthProvider>
+    </AppShell>
   );
 }
