@@ -102,7 +102,26 @@ export function SideNav({ collapsed, onToggleCollapsed, mobileOpen, onCloseMobil
   const [query, setQuery] = useState("");
   const [openGroups, setOpenGroups] = useState<Record<string, boolean>>({});
 
+  // Mobile drawer behaviour: close on route change, close on Escape, lock body scroll.
+  useEffect(() => {
+    if (mobileOpen) onCloseMobile?.();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onCloseMobile?.(); };
+    window.addEventListener("keydown", onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [mobileOpen, onCloseMobile]);
+
   const isActive = (to: string) => pathname === to || pathname.startsWith(to + "/");
+
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
