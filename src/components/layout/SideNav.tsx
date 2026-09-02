@@ -102,7 +102,26 @@ export function SideNav({ collapsed, onToggleCollapsed, mobileOpen, onCloseMobil
   const [query, setQuery] = useState("");
   const [openGroups, setOpenGroups] = useState<Record<string, boolean>>({});
 
+  // Mobile drawer behaviour: close on route change, close on Escape, lock body scroll.
+  useEffect(() => {
+    if (mobileOpen) onCloseMobile?.();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onCloseMobile?.(); };
+    window.addEventListener("keydown", onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [mobileOpen, onCloseMobile]);
+
   const isActive = (to: string) => pathname === to || pathname.startsWith(to + "/");
+
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -116,6 +135,7 @@ export function SideNav({ collapsed, onToggleCollapsed, mobileOpen, onCloseMobil
   const groupOpen = (label: string, items) =>
     openGroups[label] ?? items.some((i) => isActive(i.to));
 
+  const renderContent = (collapsed: boolean) => {
   const ItemLink = ({ item }) => (
     <Link
       to={item.to as never}
@@ -223,6 +243,8 @@ export function SideNav({ collapsed, onToggleCollapsed, mobileOpen, onCloseMobil
       </nav>
     </div>
   );
+  return content;
+  };
 
   return (
     <>
@@ -232,17 +254,18 @@ export function SideNav({ collapsed, onToggleCollapsed, mobileOpen, onCloseMobil
           collapsed ? "w-[72px]" : "w-[264px]",
         )}
       >
-        {content}
+        {renderContent(collapsed)}
       </aside>
 
       {mobileOpen && (
-        <div className="fixed inset-0 z-50 lg:hidden">
-          <button className="absolute inset-0 bg-background/70 backdrop-blur-sm" onClick={onCloseMobile} aria-label="Close menu overlay" />
-          <div className="absolute inset-y-0 left-0 w-[280px] max-w-[85vw] border-r border-border bg-background shadow-2xl">
-            {content}
+        <div className="fixed inset-0 z-50 lg:hidden" role="dialog" aria-modal="true" aria-label="Navigation menu">
+          <button className="absolute inset-0 bg-background/70 backdrop-blur-sm animate-in fade-in duration-200" onClick={onCloseMobile} aria-label="Close menu overlay" />
+          <div className="absolute inset-y-0 left-0 flex w-[280px] max-w-[85vw] flex-col overflow-y-auto overscroll-contain border-r border-border bg-background shadow-2xl animate-in slide-in-from-left duration-200">
+            {renderContent(false)}
           </div>
         </div>
       )}
+
     </>
   );
 }
