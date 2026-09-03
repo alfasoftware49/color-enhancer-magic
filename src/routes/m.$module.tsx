@@ -3,7 +3,6 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider } from "@/hooks/useAuth";
 import { TranslationProvider } from "@/contexts/TranslationContext";
 import { RoleDashboard } from "@/components/super-admin-wireframe/roleDashboards";
-import { AppShell } from "@/components/layout/AppShell";
 import { PageBanner } from "@/components/layout/PageBanner";
 import { ROLE_CATEGORIES } from "@/components/super-admin-wireframe/ControlPanelSidebar";
 import type { RoleId } from "@/components/super-admin-wireframe/ControlPanelSidebar";
@@ -28,13 +27,12 @@ function ModulePage() {
     ROLE_CATEGORIES.find((r) => r.id === module)?.label ?? "Module";
 
   return (
-    <AppShell>
-      <AuthProvider>
+    <AuthProvider>
       <TranslationProvider>
         <TooltipProvider>
           {/* Original module UI, exactly as in the source repo — banner on top. */}
-          <div className="ams-skin dark w-full overflow-x-hidden bg-background text-foreground">
-            <div>
+          <div className="ams-skin dark min-h-screen w-full overflow-x-hidden bg-background text-foreground">
+            <div className="px-3 pt-3 sm:px-6 sm:pt-4">
               <PageBanner
                 eyebrow="Software Vala"
                 title={label}
@@ -57,6 +55,5 @@ function ModulePage() {
         </TooltipProvider>
       </TranslationProvider>
     </AuthProvider>
-    </AppShell>
   );
 }
