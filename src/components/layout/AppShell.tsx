@@ -3,6 +3,8 @@ import { type ReactNode } from "react";
 import { SideNav, useSidebarState } from "./SideNav";
 import { ShellTopBar } from "./ShellTopBar";
 import { WorkspaceBar } from "./WorkspaceBar";
+import { ChatLauncher } from "@/components/chat/ChatLauncher";
+
 
 export function AppShell({ children }: { children: ReactNode }) {
   const { collapsed, toggleCollapsed, mobileOpen, setMobileOpen } = useSidebarState();
@@ -24,7 +26,9 @@ export function AppShell({ children }: { children: ReactNode }) {
           </div>
         </main>
       </div>
+      <ChatLauncher />
     </div>
+
 
   );
 }
