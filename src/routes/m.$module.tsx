@@ -4,6 +4,8 @@ import { AuthProvider } from "@/hooks/useAuth";
 import { TranslationProvider } from "@/contexts/TranslationContext";
 import { RoleDashboard } from "@/components/super-admin-wireframe/roleDashboards";
 import { PageBanner } from "@/components/layout/PageBanner";
+import { ChatLauncher } from "@/components/chat/ChatLauncher";
+
 import { ROLE_CATEGORIES } from "@/components/super-admin-wireframe/ControlPanelSidebar";
 import type { RoleId } from "@/components/super-admin-wireframe/ControlPanelSidebar";
 
@@ -52,7 +54,9 @@ function ModulePage() {
             </div>
           </div>
 
+          <ChatLauncher />
         </TooltipProvider>
+
       </TranslationProvider>
     </AuthProvider>
   );

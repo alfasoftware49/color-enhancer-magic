@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ControlPanelRouteImport } from './routes/control-panel'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as VerifyCodeRouteImport } from './routes/verify.$code'
@@ -99,6 +100,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const ControlPanelRoute = ControlPanelRouteImport.update({
   id: '/control-panel',
   path: '/control-panel',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
@@ -544,6 +550,7 @@ const AuthenticatedAwardsIdEditRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/control-panel': typeof ControlPanelRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/achievement-vault': typeof AuthenticatedAchievementVaultRoute
@@ -626,6 +633,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/control-panel': typeof ControlPanelRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/achievement-vault': typeof AuthenticatedAchievementVaultRoute
@@ -709,6 +717,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/auth': typeof AuthRoute
   '/control-panel': typeof ControlPanelRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/_authenticated/achievement-vault': typeof AuthenticatedAchievementVaultRoute
@@ -793,6 +802,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/auth'
     | '/control-panel'
     | '/sitemap.xml'
     | '/achievement-vault'
@@ -875,6 +885,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/auth'
     | '/control-panel'
     | '/sitemap.xml'
     | '/achievement-vault'
@@ -957,6 +968,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/_authenticated'
+    | '/auth'
     | '/control-panel'
     | '/sitemap.xml'
     | '/_authenticated/achievement-vault'
@@ -1041,6 +1053,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AuthRoute: typeof AuthRoute
   ControlPanelRoute: typeof ControlPanelRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ApiChatRoute: typeof ApiChatRoute
@@ -1063,6 +1076,13 @@ declare module '@tanstack/react-router' {
       path: '/control-panel'
       fullPath: '/control-panel'
       preLoaderRoute: typeof ControlPanelRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated': {
@@ -1809,6 +1829,7 @@ const AuthenticatedRouteRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AuthRoute: AuthRoute,
   ControlPanelRoute: ControlPanelRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   ApiChatRoute: ApiChatRoute,

@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 import { zodValidator, fallback } from "@tanstack/zod-adapter";
 import { z } from "zod";
 import { Sidebar } from "@/components/dashboard/Sidebar";
+import { ChatLauncher } from "@/components/chat/ChatLauncher";
 import { TopBar } from "@/components/dashboard/TopBar";
 import { Hero } from "@/components/dashboard/Hero";
 import { VendorSliderHero } from "@/components/dashboard/VendorSliderHero";
@@ -179,6 +180,7 @@ function DashboardPage() {
           )}
         </main>
       </div>
+      <ChatLauncher />
     </div>
   );
 }

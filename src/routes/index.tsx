@@ -55,6 +55,7 @@ import { CommandCenter } from "@/components/command-center/CommandCenter";
 import { KPIGrid, KPIBox } from "@/components/boss/KPIGrid";
 import { ValaAiAgent } from "@/components/vala-ai/ValaAiAgent";
 import { PageBanner } from "@/components/layout/PageBanner";
+import { ChatLauncher } from "@/components/chat/ChatLauncher";
 import { ROLE_CATEGORIES } from "@/components/super-admin-wireframe/ControlPanelSidebar";
 
 
@@ -263,6 +264,7 @@ function Index() {
 
       </div>
       <ValaAiAgent />
+      <ChatLauncher />
       <Toaster />
     </TooltipProvider></AuthProvider>
   );
