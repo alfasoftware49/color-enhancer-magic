@@ -369,6 +369,87 @@ export type Database = {
         }
         Relationships: []
       }
+      workspace_kpis: {
+        Row: {
+          created_at: string
+          delta_pct: number
+          id: string
+          kpi_key: string
+          role: string
+          updated_at: string
+          value: number
+        }
+        Insert: {
+          created_at?: string
+          delta_pct?: number
+          id?: string
+          kpi_key: string
+          role: string
+          updated_at?: string
+          value?: number
+        }
+        Update: {
+          created_at?: string
+          delta_pct?: number
+          id?: string
+          kpi_key?: string
+          role?: string
+          updated_at?: string
+          value?: number
+        }
+        Relationships: []
+      }
+      workspace_records: {
+        Row: {
+          amount: number
+          category: string
+          created_at: string
+          created_by: string | null
+          id: string
+          module: string
+          name: string
+          notes: string
+          occurred_at: string
+          owner: string
+          role: string
+          status: string
+          tags: string[]
+          updated_at: string
+        }
+        Insert: {
+          amount?: number
+          category?: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          module: string
+          name: string
+          notes?: string
+          occurred_at?: string
+          owner?: string
+          role: string
+          status?: string
+          tags?: string[]
+          updated_at?: string
+        }
+        Update: {
+          amount?: number
+          category?: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          module?: string
+          name?: string
+          notes?: string
+          occurred_at?: string
+          owner?: string
+          role?: string
+          status?: string
+          tags?: string[]
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
