@@ -1,5 +1,6 @@
-import { ArrowDownRight, MoreVertical } from "lucide-react";
+import { ArrowDownRight, ArrowUpRight, MoreVertical } from "lucide-react";
 import type { Kpi } from "@/lib/roles";
+import type { KpiValues } from "@/lib/workspace-data";
 
 const toneStyle: Record<Kpi["tone"], { bg: string; fg: string; ring: string }> = {
   brand:   { bg: "bg-brand/15", fg: "text-[oklch(0.72_0.2_265)]", ring: "hover:border-[oklch(0.62_0.22_265)]/60" },
@@ -10,11 +11,32 @@ const toneStyle: Record<Kpi["tone"], { bg: string; fg: string; ring: string }> =
   cyan:    { bg: "bg-[oklch(0.7_0.16_210)]/15", fg: "text-[oklch(0.78_0.15_210)]", ring: "hover:border-[oklch(0.7_0.16_210)]/60" },
 };
 
-export function KpiGrid({ items, onOpen }: { items: Kpi[]; onOpen: (k: string) => void }) {
+function formatValue(value: number, unit?: string) {
+  if (unit === "$") {
+    if (value >= 1_000_000) return `$${(value / 1_000_000).toFixed(1)}M`;
+    if (value >= 1_000) return `$${(value / 1_000).toFixed(1)}K`;
+    return `$${Math.round(value)}`;
+  }
+  if (value >= 1_000_000) return `${(value / 1_000_000).toFixed(1)}M`;
+  if (value >= 10_000) return `${(value / 1_000).toFixed(1)}K`;
+  return Math.round(value).toLocaleString();
+}
+
+export function KpiGrid({
+  items,
+  onOpen,
+  values = {},
+}: {
+  items: Kpi[];
+  onOpen: (k: string) => void;
+  values?: KpiValues;
+}) {
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-3 md:gap-4">
       {items.map((k) => {
         const t = toneStyle[k.tone];
+        const v = values[k.key];
+        const up = (v?.deltaPct ?? 0) >= 0;
         return (
           <button
             key={k.key}
@@ -30,15 +52,35 @@ export function KpiGrid({ items, onOpen }: { items: Kpi[]; onOpen: (k: string) =
               </span>
             </div>
             <div className="mt-4 flex items-baseline gap-1">
-              <span className="text-2xl font-black tracking-tight text-foreground/40">—</span>
-              {k.unit === "%" && <span className="text-sm font-bold text-foreground/30">%</span>}
+              {v ? (
+                <>
+                  <span className="text-2xl font-black tracking-tight text-foreground">
+                    {formatValue(v.value, k.unit)}
+                  </span>
+                  {k.unit === "%" && <span className="text-sm font-bold text-foreground/60">%</span>}
+                </>
+              ) : (
+                <>
+                  <span className="text-2xl font-black tracking-tight text-foreground/40">—</span>
+                  {k.unit === "%" && <span className="text-sm font-bold text-foreground/30">%</span>}
+                </>
+              )}
             </div>
             <div className="mt-0.5 flex items-center justify-between">
               <div className="text-xs text-muted-foreground">{k.label}</div>
-              <span className="inline-flex items-center gap-0.5 text-[10px] font-medium text-muted-foreground">
-                <ArrowDownRight className="h-3 w-3 opacity-50" />
-                no data
-              </span>
+              {v ? (
+                <span
+                  className={`inline-flex items-center gap-0.5 text-[10px] font-semibold ${up ? "text-success" : "text-destructive"}`}
+                >
+                  {up ? <ArrowUpRight className="h-3 w-3" /> : <ArrowDownRight className="h-3 w-3" />}
+                  {Math.abs(v.deltaPct).toFixed(1)}%
+                </span>
+              ) : (
+                <span className="inline-flex items-center gap-0.5 text-[10px] font-medium text-muted-foreground">
+                  <ArrowDownRight className="h-3 w-3 opacity-50" />
+                  no data
+                </span>
+              )}
             </div>
           </button>
         );
@@ -46,3 +88,4 @@ export function KpiGrid({ items, onOpen }: { items: Kpi[]; onOpen: (k: string) =
     </div>
   );
 }
+
