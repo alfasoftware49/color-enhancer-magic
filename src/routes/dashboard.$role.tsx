@@ -47,9 +47,14 @@ const dashboardSearchSchema = z.object({
 });
 
 export const Route = createFileRoute("/dashboard/$role")({
-  beforeLoad: ({ params }) => {
+  ssr: false,
+  beforeLoad: async ({ params, location }) => {
     if (!isRoleKey(params.role)) {
       throw redirect({ to: "/" });
+    }
+    const { data } = await supabase.auth.getUser();
+    if (!data.user) {
+      throw redirect({ to: "/auth", search: { redirect: location.href } });
     }
   },
   validateSearch: zodValidator(dashboardSearchSchema),
