@@ -50,6 +50,7 @@ export function RoleWorkspace({ role: initialRole }: { role: RoleKey }) {
   const [kpiSort, setKpiSort] = useState<KpiSort>("default" as KpiSort);
 
   const cfg = ROLES[role];
+  const { values: kpiValues } = useWorkspaceKpis(role);
 
   function switchRole(next: RoleKey) {
     setActiveModule(null);
