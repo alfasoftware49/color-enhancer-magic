@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import type { RoleConfig } from "@/lib/roles";
+import { useWorkspaceRecords } from "@/lib/workspace-data";
 import { useCrud, exportJson, downloadFile, type CrudRecord, type RecordStatus } from "@/lib/crud-store";
 
 type View = "table" | "grid" | "list";
@@ -42,6 +43,7 @@ export function CrudWorkspace({ role, moduleKey, onBack }: { role: RoleConfig; m
   const Icon = mod.icon;
   const singular = mod.label.replace(/s$/, "") || mod.label;
 
+  useWorkspaceRecords(role.key, moduleKey);
   const crud = useCrud(role.key, moduleKey);
   const [mode, setMode] = useState<Mode>({ kind: "list" });
   const [query, setQuery] = useState("");

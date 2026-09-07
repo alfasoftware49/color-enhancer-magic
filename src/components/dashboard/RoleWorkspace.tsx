@@ -13,6 +13,7 @@ import { VendorSliderHero } from "@/components/dashboard/VendorSliderHero";
 import { ResellerHero } from "@/components/dashboard/ResellerHero";
 import { AuthorHero } from "@/components/dashboard/AuthorHero";
 import { ResellerProfileHero } from "@/components/dashboard/ResellerProfileHero";
+import { useWorkspaceKpis } from "@/lib/workspace-data";
 import { KpiGrid } from "@/components/dashboard/KpiGrid";
 import { ContentRows } from "@/components/dashboard/ContentRows";
 import { ModulePage } from "@/components/dashboard/ModulePage";
@@ -142,7 +143,7 @@ export function RoleWorkspace({ role: initialRole }: { role: RoleKey }) {
                 sort={kpiSort}
                 onSortChange={setKpiSort}
               />
-              <KpiGrid items={filteredKpis} onOpen={(k) => setActiveModule(k)} />
+              <KpiGrid items={filteredKpis} values={kpiValues} onOpen={(k) => setActiveModule(k)} />
               <ContentRows role={cfg} onOpen={(k) => setActiveModule(k)} />
             </>
           )}
