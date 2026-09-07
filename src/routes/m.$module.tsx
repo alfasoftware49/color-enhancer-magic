@@ -28,6 +28,7 @@ const PROTECTED_MODULES = new Set([
 ]);
 
 export const Route = createFileRoute("/m/$module")({
+  ssr: false,
   beforeLoad: async ({ params, location }) => {
     if (!PROTECTED_MODULES.has(params.module)) return;
     const { data } = await supabase.auth.getUser();
