@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { z } from "zod";
+import { fallback, zodValidator } from "@tanstack/zod-adapter";
 import { Loader2, ShieldCheck } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -7,7 +9,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { supabase } from "@/services/chat/client";
 
+const authSearchSchema = z.object({
+  redirect: fallback(z.string(), "/chat").default("/chat"),
+});
+
 export const Route = createFileRoute("/auth")({
+  ssr: false,
+  validateSearch: zodValidator(authSearchSchema),
   head: () => ({
     meta: [
       { title: "Sign in · Software Vala Enterprise Chat" },
@@ -30,6 +38,8 @@ export const Route = createFileRoute("/auth")({
 
 function AuthPage() {
   const navigate = useNavigate();
+  const { redirect } = Route.useSearch();
+  const target = redirect.startsWith("/") ? redirect : "/chat";
   const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -38,13 +48,13 @@ function AuthPage() {
 
   useEffect(() => {
     void supabase.auth.getSession().then(({ data }) => {
-      if (data.session) void navigate({ to: "/chat" });
+      if (data.session) void navigate({ to: target, replace: true });
     });
     const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
-      if (session) void navigate({ to: "/chat" });
+      if (session) void navigate({ to: target, replace: true });
     });
     return () => sub.subscription.unsubscribe();
-  }, [navigate]);
+  }, [navigate, target]);
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -55,7 +65,7 @@ function AuthPage() {
           email,
           password,
           options: {
-            emailRedirectTo: `${window.location.origin}/chat`,
+            emailRedirectTo: `${window.location.origin}${target}`,
             data: { display_name: displayName || email.split("@")[0] },
           },
         });
