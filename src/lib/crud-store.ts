@@ -80,6 +80,18 @@ function subscribe(k: Key, listener: Listener) {
   return () => { listeners.get(k)?.delete(listener); };
 }
 
+/**
+ * Replaces the in-memory list for a (role, module) pair with rows loaded from
+ * the backend. Only applied once per key so local edits are not clobbered.
+ */
+const hydrated = new Set<Key>();
+export function hydrateRecords(role: string, module: string, records: CrudRecord[]) {
+  const k = key(role, module);
+  if (hydrated.has(k)) return;
+  hydrated.add(k);
+  set(role, module, records);
+}
+
 // ---------- Public hook ----------
 export function useCrud(role: string, module: string) {
   const k = key(role, module);

@@ -1,4 +1,5 @@
-import { createFileRoute, useParams } from "@tanstack/react-router";
+import { createFileRoute, redirect, useParams } from "@tanstack/react-router";
+import { supabase } from "@/services/chat/client";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider } from "@/hooks/useAuth";
 import { TranslationProvider } from "@/contexts/TranslationContext";
@@ -9,7 +10,32 @@ import { ChatLauncher } from "@/components/chat/ChatLauncher";
 import { ROLE_CATEGORIES } from "@/components/super-admin-wireframe/ControlPanelSidebar";
 import type { RoleId } from "@/components/super-admin-wireframe/ControlPanelSidebar";
 
+/** Modules that expose privileged controls require a real signed-in session. */
+const PROTECTED_MODULES = new Set([
+  "super_admin_system",
+  "internal_chat",
+  "ws_author",
+  "ws_vendor",
+  "ws_reseller",
+  "ws_affiliate",
+  "ws_influencer",
+  "ws_franchise",
+  "ws_seo",
+  "ws_admin",
+  "ws_developer",
+  "ws_dev_manager",
+  "ws_promise_tracker",
+]);
+
 export const Route = createFileRoute("/m/$module")({
+  ssr: false,
+  beforeLoad: async ({ params, location }) => {
+    if (!PROTECTED_MODULES.has(params.module)) return;
+    const { data } = await supabase.auth.getUser();
+    if (!data.user) {
+      throw redirect({ to: "/auth", search: { redirect: location.href } });
+    }
+  },
   head: () => ({
     meta: [
       { title: "Module — Control Panel" },

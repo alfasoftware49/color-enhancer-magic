@@ -10,6 +10,8 @@ import { VendorSliderHero } from "@/components/dashboard/VendorSliderHero";
 import { ResellerHero } from "@/components/dashboard/ResellerHero";
 import { AuthorHero } from "@/components/dashboard/AuthorHero";
 import { ResellerProfileHero } from "@/components/dashboard/ResellerProfileHero";
+import { supabase } from "@/services/chat/client";
+import { useWorkspaceKpis } from "@/lib/workspace-data";
 import { KpiGrid } from "@/components/dashboard/KpiGrid";
 import { ContentRows } from "@/components/dashboard/ContentRows";
 import { ModulePage } from "@/components/dashboard/ModulePage";
@@ -45,9 +47,14 @@ const dashboardSearchSchema = z.object({
 });
 
 export const Route = createFileRoute("/dashboard/$role")({
-  beforeLoad: ({ params }) => {
+  ssr: false,
+  beforeLoad: async ({ params, location }) => {
     if (!isRoleKey(params.role)) {
       throw redirect({ to: "/" });
+    }
+    const { data } = await supabase.auth.getUser();
+    if (!data.user) {
+      throw redirect({ to: "/auth", search: { redirect: location.href } });
     }
   },
   validateSearch: zodValidator(dashboardSearchSchema),
@@ -69,6 +76,7 @@ function DashboardPage() {
   const navigate = Route.useNavigate();
   const [activeModule, setActiveModule] = useState<string | null>(null);
   const cfg = ROLES[role as RoleKey];
+  const { values: kpiValues } = useWorkspaceKpis(role);
   const kpiTone = search.kpiTone as KpiTone;
   const kpiSort = search.kpiSort as KpiSort;
   const setKpiTone = (t: KpiTone) =>
@@ -174,7 +182,7 @@ function DashboardPage() {
                 sort={kpiSort}
                 onSortChange={setKpiSort}
               />
-              <KpiGrid items={filteredKpis} onOpen={(k) => setActiveModule(k)} />
+              <KpiGrid items={filteredKpis} values={kpiValues} onOpen={(k) => setActiveModule(k)} />
               <ContentRows role={cfg} onOpen={(k) => setActiveModule(k)} />
             </>
           )}
