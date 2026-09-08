@@ -20,6 +20,7 @@ import { memo, useCallback, useState } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { 
+import { preloadRoleDashboard } from "./roleDashboards";
   Crown, Eye, Brain, Server, Globe2, Flag, Building2, 
   Headphones, Handshake, Target, Box, Terminal, 
   Star, Scale, ListTodo, DollarSign, Code2, 
@@ -155,6 +156,9 @@ const RoleButton = memo<{
   return (
     <button
       onClick={onClick}
+      onMouseEnter={() => preloadRoleDashboard(role.id)}
+      onFocus={() => preloadRoleDashboard(role.id)}
+      onTouchStart={() => preloadRoleDashboard(role.id)}
       type="button"
       title={compact ? role.label : undefined}
       className={cn(
