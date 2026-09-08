@@ -20,7 +20,6 @@ import { memo, useCallback, useState } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { 
-import { preloadRoleDashboard } from "./roleDashboards";
   Crown, Eye, Brain, Server, Globe2, Flag, Building2, 
   Headphones, Handshake, Target, Box, Terminal, 
   Star, Scale, ListTodo, DollarSign, Code2, 
@@ -31,6 +30,7 @@ import { preloadRoleDashboard } from "./roleDashboards";
   PanelLeftClose, PanelLeftOpen
 
 } from "lucide-react";
+import { preloadRoleDashboard } from "./roleDashboards";
 // ScrollArea removed - NO SCROLLING in Control Panel
 
 // ===== LOCKED COLORS (SOFTWARE VALA VIOLET GRADIENT) =====
