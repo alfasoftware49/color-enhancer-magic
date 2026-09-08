@@ -1,22 +1,24 @@
 /**
  * ROLE → DASHBOARD REGISTRY
- * Maps every Control Panel sidebar module to its full dashboard,
- * lazily loaded so the cockpit stays fast.
+ * Maps every Control Panel sidebar module to its full dashboard.
+ * Chunks are code-split but can be warmed up ahead of the click
+ * (hover / focus / idle) so opening a module feels instant.
  */
-import { lazy, Suspense, type ComponentType } from "react";
+import { lazy, Suspense, useEffect, type ComponentType } from "react";
 import type { RoleId } from "./ControlPanelSidebar";
 
 const noop = () => {};
 
-const workspace = (role: string) =>
-  lazy(async () => {
-    const m = await import("@/components/dashboard/RoleWorkspace");
-    return { default: () => <m.RoleWorkspace role={role as never} /> };
-  });
+type Loader = () => Promise<{ default: ComponentType<any> }>;
 
-const lazyDefault = (loader: () => Promise<{ default: ComponentType<any> }>) => lazy(loader);
+const workspace = (role: string): Loader => async () => {
+  const m = await import("@/components/dashboard/RoleWorkspace");
+  return { default: () => <m.RoleWorkspace role={role as never} /> };
+};
 
-export const ROLE_DASHBOARDS: Partial<Record<RoleId, ComponentType<any>>> = {
+const lazyDefault = (loader: Loader): Loader => loader;
+
+const ROLE_LOADERS: Partial<Record<RoleId, Loader>> = {
   // GRADE 1
   ceo: lazyDefault(() => import("@/pages/ai-ceo/AICEODashboard")),
   vala_ai_management: lazyDefault(() => import("@/pages/OverAI")),
@@ -29,11 +31,11 @@ export const ROLE_DASHBOARDS: Partial<Record<RoleId, ComponentType<any>>> = {
   task_management: lazyDefault(() => import("@/pages/TaskManager")),
   promise_tracker_manager: lazyDefault(() => import("@/pages/promise-tracker/PromiseTrackerDashboard")),
   assist_manager: lazyDefault(() => import("@/pages/assist-manager/AssistManagerDashboard")),
-  ams_manager: lazy(async () => {
+  ams_manager: (async () => {
     const m = await import("@/components/dashboard/AMSCenterWorkspace");
     return { default: () => <m.AMSCenterWorkspace onBack={noop} /> };
   }),
-  award_management: lazy(async () => {
+  award_management: (async () => {
     const [m, roles] = await Promise.all([
       import("@/components/dashboard/AMSWorkspace"),
       import("@/lib/roles"),
@@ -78,7 +80,7 @@ export const ROLE_DASHBOARDS: Partial<Record<RoleId, ComponentType<any>>> = {
   // GRADE 6.5 — PLATFORM MODULES
   marketplace_manager: lazyDefault(() => import("@/pages/super-admin/ProductManagerPage")),
   super_admin_system: lazyDefault(() => import("@/pages/super-admin-system/RoleSwitch/RoleSwitchDashboard")),
-  vala_control: lazy(async () => {
+  vala_control: (async () => {
     const m = await import("@/pages/vala-control/ValaControlCenter");
     return { default: () => <m.default roleView="operations" /> };
   }),
@@ -110,18 +112,57 @@ export const ROLE_DASHBOARDS: Partial<Record<RoleId, ComponentType<any>>> = {
   settings: lazyDefault(() => import("@/pages/Settings")),
 };
 
+const CACHE = new Map<string, Promise<{ default: ComponentType<any> }>>();
+
+/** Warm a module chunk before the user clicks it. */
+export function preloadRoleDashboard(role: string) {
+  const loader = ROLE_LOADERS[role as RoleId];
+  if (!loader) return;
+  if (!CACHE.has(role)) CACHE.set(role, loader().catch(() => ({ default: () => null })));
+}
+
+export const ROLE_DASHBOARDS: Partial<Record<RoleId, ComponentType<any>>> = Object.fromEntries(
+  Object.entries(ROLE_LOADERS).map(([role, loader]) => [
+    role,
+    lazy(() => {
+      preloadRoleDashboard(role);
+      return CACHE.get(role)!;
+    }),
+  ]),
+) as Partial<Record<RoleId, ComponentType<any>>>;
+
+function DashboardSkeleton() {
+  return (
+    <div className="animate-pulse space-y-4 p-4 sm:p-6" aria-busy="true" aria-live="polite">
+      <div className="h-9 w-64 rounded-lg bg-foreground/10" />
+      <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+        {Array.from({ length: 8 }).map((_, i) => (
+          <div key={i} className="h-24 rounded-xl bg-foreground/[0.07]" />
+        ))}
+      </div>
+      <div className="h-64 rounded-xl bg-foreground/[0.06]" />
+    </div>
+  );
+}
+
 export function RoleDashboard({ role }: { role: RoleId }) {
   const Dashboard = ROLE_DASHBOARDS[role];
+
+  // Warm the neighbouring modules once this one is on screen.
+  useEffect(() => {
+    const ids = Object.keys(ROLE_LOADERS);
+    const idx = ids.indexOf(role);
+    const near = [ids[idx + 1], ids[idx - 1]].filter(Boolean) as string[];
+    const run = () => near.forEach(preloadRoleDashboard);
+    const w = window as any;
+    const id = w.requestIdleCallback ? w.requestIdleCallback(run, { timeout: 2000 }) : window.setTimeout(run, 1200);
+    return () => (w.cancelIdleCallback ? w.cancelIdleCallback(id) : clearTimeout(id));
+  }, [role]);
+
   if (!Dashboard) return null;
 
   return (
-    <Suspense
-      fallback={
-        <div className="flex h-[60vh] items-center justify-center text-sm text-white/60">
-          Loading module…
-        </div>
-      }
-    >
+    <Suspense fallback={<DashboardSkeleton />}>
       {/* Render the original page exactly as it is in the source repo — no extra chrome. */}
       <Dashboard />
     </Suspense>
