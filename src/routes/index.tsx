@@ -6,7 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider } from "@/hooks/useAuth";
 import { SliderBanner } from "@/components/slider-banner/SliderBanner";
 import { BannerThemeControls } from "@/components/slider-banner/BannerThemeControls";
-import { RoleDashboard } from "@/components/super-admin-wireframe/roleDashboards";
+import { RoleDashboard, preloadRoleDashboard } from "@/components/super-admin-wireframe/roleDashboards";
 
 
 
@@ -199,6 +199,7 @@ function Index() {
                 setActiveRole(roleId);
                 return;
               }
+              preloadRoleDashboard(roleId);
               navigate({ to: "/m/$module", params: { module: roleId } });
             }}
             onLogout={() => toast.info("Logging out...")}

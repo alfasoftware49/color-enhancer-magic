@@ -30,6 +30,7 @@ import {
   PanelLeftClose, PanelLeftOpen
 
 } from "lucide-react";
+import { preloadRoleDashboard } from "./roleDashboards";
 // ScrollArea removed - NO SCROLLING in Control Panel
 
 // ===== LOCKED COLORS (SOFTWARE VALA VIOLET GRADIENT) =====
@@ -155,6 +156,9 @@ const RoleButton = memo<{
   return (
     <button
       onClick={onClick}
+      onMouseEnter={() => preloadRoleDashboard(role.id)}
+      onFocus={() => preloadRoleDashboard(role.id)}
+      onTouchStart={() => preloadRoleDashboard(role.id)}
       type="button"
       title={compact ? role.label : undefined}
       className={cn(
