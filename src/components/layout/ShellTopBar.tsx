@@ -14,9 +14,9 @@ import { RouteHistoryArrows } from "@/components/layout/RouteHistory";
 export function ShellTopBar({ onOpenMenu }: { onOpenMenu?: () => void }) {
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-xl">
-      <div className="flex h-16 items-center gap-2 px-3 sm:gap-3 lg:px-6">
+      <div className="flex h-14 items-center gap-2 px-3 sm:gap-2.5 lg:px-6">
         <button
-          className="grid h-11 w-11 shrink-0 place-items-center rounded-lg border border-border lg:hidden"
+          className="grid h-10 w-10 shrink-0 place-items-center rounded-lg border border-border lg:hidden"
           onClick={onOpenMenu}
           aria-label="Open menu"
         >
@@ -36,13 +36,13 @@ export function ShellTopBar({ onOpenMenu }: { onOpenMenu?: () => void }) {
           <input
             id="global-search"
             placeholder="Search achievements, users, rewards…"
-            className="h-11 w-full rounded-full border border-border bg-surface pl-9 pr-3 text-sm outline-none placeholder:text-muted-foreground focus:border-primary/40 sm:h-9"
+            className="h-10 w-full rounded-full border border-border bg-surface pl-9 pr-3 text-sm outline-none placeholder:text-muted-foreground focus:border-primary/40 sm:h-9"
           />
         </div>
 
         <button
           type="button"
-          className="flex h-11 shrink-0 items-center gap-1.5 rounded-full border border-border px-2.5 text-xs text-muted-foreground transition-colors hover:border-primary/40 hover:text-foreground sm:h-9"
+          className="flex h-10 shrink-0 items-center gap-1.5 rounded-full border border-border px-2.5 text-xs text-muted-foreground transition-colors hover:border-primary/40 hover:text-foreground sm:h-9"
           title="Command palette — ⌘K / Ctrl+K"
         >
           <Command className="h-4 w-4" aria-hidden="true" />
