@@ -16,12 +16,12 @@ interface PageShellProps {
 
 export function PageShell({ title, subtitle, count, actions, banner, children }: PageShellProps) {
   return (
-    <div className="mx-auto w-full max-w-[1600px] space-y-6">
+    <div className="mx-auto w-full max-w-[1760px] space-y-4 sm:space-y-5">
       {banner}
       {title && (
         <div className="grid grid-cols-[minmax(0,1fr)_auto] items-end gap-4 sm:flex sm:flex-wrap sm:justify-between">
           <div className="min-w-0">
-            <h1 className="truncate text-2xl font-semibold tracking-tight sm:text-3xl lg:text-[34px]">
+            <h1 className="truncate text-xl font-semibold tracking-tight sm:text-2xl lg:text-[26px]">
               {title}
               {count !== undefined && (
                 <span className="ml-3 align-middle rounded-full bg-primary/15 px-2.5 py-1 text-xs font-semibold text-primary">

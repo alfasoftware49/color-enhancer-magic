@@ -20,7 +20,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       <div className="flex min-w-0 flex-1 flex-col">
         <ShellTopBar onOpenMenu={() => setMobileOpen(true)} />
         <main className="min-w-0 flex-1">
-          <div className="mx-auto w-full min-w-0 max-w-[1600px] px-3 py-4 sm:px-6 sm:py-6 lg:px-8">
+          <div className="mx-auto w-full min-w-0 max-w-[1760px] px-3 py-3 sm:px-5 sm:py-4 lg:px-6">
             <WorkspaceBar />
             {children}
           </div>
